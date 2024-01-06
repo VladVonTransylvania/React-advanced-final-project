@@ -1,0 +1,100 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Ignacio Doe",
+      "image": "https://global-uploads.webflow.com/5eecfecbe625d195e35b89f2/624bfb093da7d92733c001c0_Ignacio%20Villafruela%20Rodr%C3%ADguez.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Jane Bennett",
+      "image": "https://global-uploads.webflow.com/5eecfecbe625d195e35b89f2/624bfb401d7131c760ca1c63_Elieska%20Lensink.jpg"
+    }
+  ],
+  "events": [
+    {
+      "title": "Trampoline party",
+      "description": "Bounce around with your friends and laugh",
+      "image": "https://i.pinimg.com/736x/3d/2f/af/3d2faf4e3188d34a9fcdc00df59e77b0.jpg",
+      "startTime": "2023-03-10T18:00",
+      "endTime": "2023-03-10T22:00",
+      "categoryIds": [
+        2
+      ],
+      "id": 1
+    },
+    {
+      "id": 2,
+      "createdBy": 1,
+      "title": "Laser Tag mania",
+      "description": "Let's play laser tag!",
+      "image": "https://www.ctvnews.ca/polopoly_fs/1.5118552.1600965663!/httpImage/image.jpg_gen/derivatives/landscape_1020/image.jpg",
+      "categoryIds": [
+        2
+      ],
+      "location": "Blinded by the Lights Laser Tag, 15 Main St.",
+      "startTime": "2023-04-06T18:46",
+      "endTime": "2023-04-06T17:47"
+    },
+    {
+      "title": "Badminton game",
+      "description": "Hit that shuttle!",
+      "image": "https://s3.eu-west-2.amazonaws.com/ws-activestirling/production/Badminton/_1200x630_crop_center-center_none/Badminton-3.jpg",
+      "startTime": "2023-03-15T13:00",
+      "endTime": "2023-03-15T15:00",
+      "categoryIds": [
+        2
+      ],
+      "id": 3
+    },
+    {
+      "id": 4,
+      "createdBy": 2,
+      "title": "Yogaaa",
+      "description": "It's a bit of a stretchhhh.",
+      "image": "https://ymcasouthflorida.org/wp-content/uploads/2019/12/AA2I8910-scaled.jpg",
+      "categoryIds": [
+        3
+      ],
+      "location": "Shavasana Yoga School",
+      "startTime": "2023-03-09T07:00",
+      "endTime": "2023-03-09T09:02"
+    },
+    {
+      "title": "Winter sun",
+      "description": "Cold",
+      "image": "https://cdn.pixabay.com/photo/2023/12/12/16/11/mountain-8445543_1280.jpg",
+      "startTime": "2024-01-24T19:44",
+      "endTime": "2024-01-29T22:44",
+      "categoryIds": [
+        3
+      ],
+      "id": 5
+    },
+    {
+      "title": "New Year's Eve",
+      "description": "Party",
+      "image": "https://cdn.pixabay.com/photo/2023/12/10/18/34/man-8442149_960_720.png",
+      "startTime": "2023-12-31T23:00",
+      "endTime": "2024-01-01T05:00",
+      "categoryIds": [
+        3
+      ],
+      "id": 6
+    }
+  ],
+  "categories": [
+    {
+      "name": "sports",
+      "id": 1
+    },
+    {
+      "name": "games",
+      "id": 2
+    },
+    {
+      "name": "relaxation",
+      "id": 3
+    }
+  ]
+}
