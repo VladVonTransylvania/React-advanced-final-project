@@ -29,7 +29,7 @@ function toLocalDateTimeString(isoString) {
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
 
-export const EditEventModal = ({ isOpen, onClose, event }) => {
+export const EditEventModal = ({ isOpen, onClose, event, onEventUpdate }) => {
   const [editedEvent, setEditedEvent] = useState({
     title: event?.title || "",
     description: event?.description || "",
@@ -62,7 +62,7 @@ export const EditEventModal = ({ isOpen, onClose, event }) => {
     if (name === "categoryIds") {
       const selectedOptions = Array.from(
         e.target.selectedOptions,
-        (option) => parseInt(option.value) // Make sure category IDs are integers
+        (option) => parseInt(option.value) // Convert to integers here
       );
       setEditedEvent({ ...editedEvent, [name]: selectedOptions });
     } else {
@@ -70,22 +70,30 @@ export const EditEventModal = ({ isOpen, onClose, event }) => {
     }
   };
 
+  const updateEvent = async () => {
+    // Use editedEvent directly as categoryIds are already converted to numbers
+    return await updateData(`events/${event.id}`, editedEvent);
+  };
+
   const handleSubmit = async () => {
     try {
-      const response = await updateData(`events/${event.id}`, {
-        ...editedEvent,
-        categoryIds: editedEvent.categoryIds.map(Number), // Ensure category IDs are sent as numbers
-      });
-      console.log("Update Response:", response); // Debugging line
-      toast({
-        title: "Event updated successfully!",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
+      const response = await updateEvent();
+
+      if (response) {
+        onEventUpdate ({ ...event, ...editedEvent });
+      } else {
+        // Handle case where response is not as expected
+        toast({
+          title: "Event update response not valid",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
       onClose();
+
     } catch (error) {
-      console.error("Update Error:", error); // Debugging line
+
       toast({
         title: "Failed to update event.",
         description: error.message,

@@ -8,6 +8,8 @@ import {
   Button,
   Text,
   Select,
+  Flex,
+  Heading,
 } from "@chakra-ui/react";
 import { DataContext } from "../contexts/DataContext"; 
 
@@ -57,83 +59,98 @@ export const AddEvent = () => {
   };
 
   return (
-    <Box p={4} maxWidth="800px" width="100%" mx="auto">
-      <form onSubmit={handleSubmit}>
-        <FormControl isRequired>
-          <FormLabel htmlFor="title">Event Title</FormLabel>
-          <Input
-            id="title"
-            name="title"
-            type="text"
-            value={eventData.title}
-            onChange={handleChange}
-          />
-        </FormControl>
-        <FormControl isRequired>
-          <FormLabel htmlFor="description">Description</FormLabel>
-          <Input
-            id="description"
-            name="description"
-            type="text"
-            value={eventData.description}
-            onChange={handleChange}
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="image">Image URL</FormLabel>
-          <Input
-            id="image"
-            name="image"
-            type="text"
-            value={eventData.image}
-            onChange={handleChange}
-          />
-        </FormControl>
-        <FormControl isRequired>
-          <FormLabel htmlFor="startTime">Start Time</FormLabel>
-          <Input
-            id="startTime"
-            name="startTime"
-            type="datetime-local"
-            value={eventData.startTime}
-            onChange={handleChange}
-          />
-        </FormControl>
-        <FormControl isRequired>
-          <FormLabel htmlFor="endTime">End Time</FormLabel>
-          <Input
-            id="endTime"
-            name="endTime"
-            type="datetime-local"
-            value={eventData.endTime}
-            onChange={handleChange}
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="categoryIds">Categories</FormLabel>
-          <Select
-            id="categoryIds"
-            name="categoryIds"
-            onChange={handleChange}
-            placeholder="Select category"
-          >
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </Select>
-        </FormControl>
+    <Flex direction="column" align="center" justify="center" minH="100vh">
+      <Box
+        p={4}
+        borderWidth="1px"
+        borderRadius="lg"
+        boxShadow="lg"
+        bg="white"
+        maxWidth="800px"
+        width="100%"
+        mx="auto"
+      >
+        <Heading as="h2" size="lg" mb={6} textAlign="center">
+          Add Event Form
+        </Heading>
 
-        <Button mt={4} colorScheme="teal" type="submit">
-          Add Event
-        </Button>
-      </form>
-      {message && (
-        <Text mt={4} color="red.500">
-          {message}
-        </Text>
-      )}
-    </Box>
+        <form onSubmit={handleSubmit}>
+          <FormControl isRequired>
+            <FormLabel htmlFor="title">Event Title</FormLabel>
+            <Input
+              id="title"
+              name="title"
+              type="text"
+              value={eventData.title}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl isRequired>
+            <FormLabel htmlFor="description">Description</FormLabel>
+            <Input
+              id="description"
+              name="description"
+              type="text"
+              value={eventData.description}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="image">Image URL</FormLabel>
+            <Input
+              id="image"
+              name="image"
+              type="text"
+              value={eventData.image}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl isRequired>
+            <FormLabel htmlFor="startTime">Start Time</FormLabel>
+            <Input
+              id="startTime"
+              name="startTime"
+              type="datetime-local"
+              value={eventData.startTime}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl isRequired>
+            <FormLabel htmlFor="endTime">End Time</FormLabel>
+            <Input
+              id="endTime"
+              name="endTime"
+              type="datetime-local"
+              value={eventData.endTime}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="categoryIds">Categories</FormLabel>
+            <Select
+              id="categoryIds"
+              name="categoryIds"
+              onChange={handleChange}
+              placeholder="Select category"
+            >
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+
+          <Button mt={4} colorScheme="teal" type="submit">
+            Add Event
+          </Button>
+        </form>
+        {message && (
+          <Text mt={4} color="red.500">
+            {message}
+          </Text>
+        )}
+      </Box>
+    </Flex>
   );
 };

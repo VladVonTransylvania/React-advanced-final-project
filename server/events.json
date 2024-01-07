@@ -16,7 +16,7 @@
       "title": "Trampoline party",
       "description": "Bounce around with your friends and laugh",
       "image": "https://i.pinimg.com/736x/3d/2f/af/3d2faf4e3188d34a9fcdc00df59e77b0.jpg",
-      "startTime": "2023-03-10T18:00",
+      "startTime": "2023-03-10T20:00",
       "endTime": "2023-03-10T22:00",
       "categoryIds": [
         2
@@ -54,7 +54,7 @@
       "startTime": "2023-03-09T07:00",
       "endTime": "2023-03-09T09:02",
       "categoryIds": [
-        3
+        1
       ],
       "id": 4
     },

@@ -11,7 +11,7 @@ export const Navigation = () => {
       as="nav"
       bg="blue.500"
       color="white"
-      p={3}
+      p={5}
       justifyContent="space-around"
     >
       {/* Link to the main events page */}

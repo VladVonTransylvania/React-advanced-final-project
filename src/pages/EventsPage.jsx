@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { fetchData } from "../util/api";
 import { DataContext } from "../contexts/DataContext";
-import { Flex } from "@chakra-ui/react"; // Import Flex from Chakra UI
+import { Flex, Box, Button, Text, Image, Select } from '@chakra-ui/react';
 import { SearchBar } from "../components/SearchBar"; // Import SearchBar component
 
 
@@ -63,57 +63,84 @@ export const EventsPage = () => {
       .join(", ");
   };
 
-  const eventCardStyle = {
-    width: "100%", // Full width on smaller screens
-    maxWidth: "800px", // Maximum width similar to the form
-    margin: "0 auto 20px auto", // Centering the card
-    border: "1px solid #ddd",
-    padding: "10px",
-    boxSizing: "border-box",
-  };
+  
+return (
+  <Flex direction="column" align="center" justify="flex-start" mt="20px">
 
-  return (
-    <div>
-      <Flex justifyContent="center" mt="20px" mb="20px">
-        <SearchBar onSearch={handleSearch} />
-        <select
-          onChange={(e) => handleCategoryChange(e.target.value)}
-          style={{ marginLeft: "10px" }}
+    {/* Search Bar Container */}
+    <Flex w="100%" maxW="800px" mb="20px" justifyContent="center">
+      <SearchBar onSearch={handleSearch} w="80%" />{" "}
+      {/* Same width for the search bar */}
+    </Flex>
+
+    {/* Category Filter Container */}
+    <Flex w="100%" maxW="800px" mb="20px" justifyContent="center">
+      <Select
+        onChange={(e) => handleCategoryChange(e.target.value)}
+        w="50%" // Same width for the category filter
+        placeholder="All Categories"
+        _placeholder={{ color: "gray.500" }}
+      >
+        {categories.map((category) => (
+          <option key={category.id} value={category.id}>
+            {category.name}
+          </option>
+        ))}
+      </Select>
+    </Flex>
+
+    <Flex justifyContent="center" mb="5">
+      <Link to="/add-event">
+        <Button colorScheme="blue">Create an event</Button>
+      </Link>
+    </Flex>
+
+    {filteredEvents.map((event) => (
+      <Flex
+        
+        direction="column"
+        mb="20px"
+        key={event.id}
+        w="100%"
+        
+      >
+        <Box
+          key={event.id}
+          borderRadius="lg"
+          overflow="hidden"
+          p="4"
+          mb="20px"
+          boxShadow="md"
+          bg="rgba(255, 255, 255, 0.8)"
+          backdropFilter="blur(10px)"
+          w="100%"
+          maxW="800px"
+          textAlign="center"
+          m="0 auto"
+          _hover={{ boxShadow: "xl" }}
         >
-          <option value="">All Categories</option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-      </Flex>
-      {filteredEvents.map((event) => (
-        <div style={{ ...eventCardStyle }} key={event.id}>
           <Link to={`/event/${event.id}`}>
-            <h2>{event.title}</h2>
-            <img
+            <Text fontSize="xl" fontWeight="bold">
+              {event.title}
+            </Text>
+            <Image
               src={event.image}
               alt={event.title}
-              style={{ maxWidth: "100%", height: "auto" }}
+              maxWidth="100%"
+              height="auto"
             />
-            <p>{event.description}</p>
-            <p>Start Time: {new Date(event.startTime).toLocaleString()}</p>
-            <p>End Time: {new Date(event.endTime).toLocaleString()}</p>
-            <p>Categories: {getCategoryNames(event.categoryIds)}</p>
+            <Text>{event.description}</Text>
+            <Text>
+              Start Time: {new Date(event.startTime).toLocaleString()}
+            </Text>
+            <Text>End Time: {new Date(event.endTime).toLocaleString()}</Text>
+            <Text>Categories: {getCategoryNames(event.categoryIds)}</Text>{" "}
           </Link>
-        </div>
-      ))}
-      <Flex justifyContent="center">
-        <Link
-          to="/add-event"
-          style={{ ...eventCardStyle, background: "blue", color: "white" }}
-        >
-          Add Event
-        </Link>
+        </Box>
       </Flex>
-    </div>
-  );
+    ))}
+  </Flex>
+);
 };
 
 export default EventsPage;

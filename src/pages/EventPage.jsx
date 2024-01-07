@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchData, deleteData } from "../util/api";
+import { fetchData, deleteData, updateData } from "../util/api";
 import { EditEventModal } from "../components/EditEventModal";
 import {
   Box,
@@ -19,13 +19,12 @@ export const EventPage = () => {
   const [event, setEvent] = useState(null);
   const [users, setUsers] = useState([]);
   const [categories, setCategories] = useState([]);
-  // State for deletion message
+
   const navigate = useNavigate();
-  const toast = useToast(); // Toast instance
+  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
-    // Fetch users and categories data
     fetchData("users").then(setUsers);
     fetchData("categories").then(setCategories);
 
@@ -39,12 +38,32 @@ export const EventPage = () => {
   };
 
   const getEventCategories = (categoryIds) => {
-    // Ensure categoryIds is always treated as an array
     const ids = Array.isArray(categoryIds) ? categoryIds : [];
 
     return categories
       .filter((category) => ids.includes(category.id))
       .map((category) => category.name);
+  };
+
+  const handleEventUpdate = async (updatedEventData) => {
+    try {
+      await updateData(`events/${eventId}`, updatedEventData);
+      setEvent(updatedEventData);
+      toast({
+        title: "Event updated successfully!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: "Failed to update event.",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
   };
 
   const handleDelete = async () => {
@@ -57,7 +76,7 @@ export const EventPage = () => {
           duration: 5000,
           isClosable: true,
         });
-        // Wait for 5 seconds before navigating
+
         setTimeout(() => navigate("/"), 2000);
       } catch (error) {
         toast({
@@ -67,7 +86,7 @@ export const EventPage = () => {
           duration: 5000,
           isClosable: true,
         });
-        // No delay needed here, navigate immediately
+
         navigate("/");
       }
     }
@@ -79,23 +98,37 @@ export const EventPage = () => {
 
   return (
     <Flex align="center" justify="center" minH="100vh">
-      <Box p={4} w="full" maxW={{ base: "90%", sm: "600px", md: "800px" }}>
+      <Box
+      p={4}
+        borderWidth="1px"
+        borderRadius="lg"
+        boxShadow="lg"
+        bg="white"
+        maxWidth="800px"
+        width="100%"
+        mx="auto"
+      >
         {event ? (
           <>
-            <Heading as="h1" size="xl">
+            <Heading as="h1" size="xl" mb={4}>
               {event.title}
             </Heading>
-            <Image src={event.image} alt={event.title} mt={4} />
-            <Text fontSize="md" mt={2}>
+            <Image
+              src={event.image}
+              alt={event.title}
+              mb={4}
+              borderRadius="md"
+            />
+            <Text fontSize="md" mb={2}>
               {event.description}
             </Text>
-            <Text mt={2}>
+            <Text mb={2}>
               Start Time: {new Date(event.startTime).toLocaleString()}
             </Text>
-            <Text mt={2}>
+            <Text mb={2}>
               End Time: {new Date(event.endTime).toLocaleString()}
             </Text>
-            <Box mt={2}>
+            <Box mb={4}>
               Categories:{" "}
               {getEventCategories(event.categoryIds).map((category, index) => (
                 <Tag key={index} mr={2}>
@@ -103,7 +136,7 @@ export const EventPage = () => {
                 </Tag>
               ))}
             </Box>
-            <Box mt={2}>
+            <Box mb={4}>
               Created By:{" "}
               <Text as="span" fontWeight="bold">
                 {getEventCreator(event.createdBy).name}
@@ -111,10 +144,11 @@ export const EventPage = () => {
               <Image
                 src={getEventCreator(event.createdBy).image}
                 alt={getEventCreator(event.createdBy).name}
-                boxSize="50px"
+                boxSize="100px"
+                ml={2}
               />
             </Box>
-            <Flex justifyContent="space-between" mt={4}>
+            <Flex justifyContent="space-between">
               <Button colorScheme="blue" onClick={handleEdit}>
                 Edit Event
               </Button>
@@ -127,7 +161,12 @@ export const EventPage = () => {
           <Text>Loading...</Text>
         )}
       </Box>
-      <EditEventModal isOpen={isOpen} onClose={onClose} event={event} />
+      <EditEventModal
+        isOpen={isOpen}
+        onClose={onClose}
+        event={event}
+        onEventUpdate={handleEventUpdate}
+      />
     </Flex>
   );
 };
