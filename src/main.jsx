@@ -1,4 +1,4 @@
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, Box } from '@chakra-ui/react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { EventPage } from './pages/EventPage';
@@ -37,7 +37,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ChakraProvider>
       <DataProvider>
-        <RouterProvider router={router} />
+        <Box bg="blue.100" minH="100vh" color="black">
+          <RouterProvider router={router} />
+        </Box>
       </DataProvider>
     </ChakraProvider>
   </React.StrictMode>

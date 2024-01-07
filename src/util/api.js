@@ -42,9 +42,9 @@ export const deleteData = async (endpoint) => {
 export const postData = async (endpoint, data) => {
   try {
     const response = await fetch(`http://localhost:3000/${endpoint}`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
@@ -60,7 +60,6 @@ export const postData = async (endpoint, data) => {
   }
 };
 
-
 /**
  * Sends a PUT request to the specified endpoint.
  * @param {string} endpoint - The API endpoint to send the PUT request to.
@@ -73,9 +72,9 @@ export const updateData = async (endpoint, data) => {
     console.log("Data being sent:", data);
 
     const response = await fetch(`http://localhost:3000/${endpoint}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
