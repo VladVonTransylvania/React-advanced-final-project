@@ -175,7 +175,12 @@ export const EditEventModal = ({ isOpen, onClose, event, onEventUpdate }) => {
           <Button colorScheme="blue" mr={3} onClick={handleSubmit}>
             Save Changes
           </Button>
-          <Button variant="ghost" onClick={onClose}>
+          <Button
+            variant="ghost"
+            onClick={onClose}
+            border="2px" 
+            borderColor="gray.500"
+          >
             Cancel
           </Button>
         </ModalFooter>

@@ -101,17 +101,18 @@ export const EventPage = () => {
     navigate("/");
   };
 
+
   return (
     <Flex align="center" justify="center" minH="100vh">
       <Box
         p={3}
         borderWidth="1px"
-        borderRadius="lg"
         boxShadow="lg"
         bg="white"
         maxWidth="800px"
         width="100%"
         mx="auto"
+        textAlign="center"
       >
         {event ? (
           <>
@@ -143,29 +144,37 @@ export const EventPage = () => {
             </Box>
             <Box mb={4}>
               Created By:{" "}
-              <Text as="span" fontWeight="bold">
+              <Text as="span" fontWeight="bold" display="block">
                 {getEventCreator(event.createdBy).name}
               </Text>
-              <Image
-                src={getEventCreator(event.createdBy).image}
-                alt={getEventCreator(event.createdBy).name}
-                boxSize="100px"
-                ml={2}
-              />
-            </Box>
-            <Flex justifyContent="space-between">
-              <Flex gap="10">
-                <Button colorScheme="blue" onClick={handleEdit}>
-                  Edit Event
-                </Button>
-                <Button colorScheme="gray" onClick={handleCancel}>
-                  Cancel
-                </Button>
+              <Flex justifyContent="center">
+                <Image
+                  src={getEventCreator(event.createdBy).image}
+                  alt={getEventCreator(event.createdBy).name}
+                  boxSize="100px"
+                  ml={2}
+                />
               </Flex>
-              <Button colorScheme="red" onClick={handleDelete}>
-                Delete Event
+            </Box>
+            <Flex justifyContent="space-between" flexWrap="wrap">
+              <Flex gap="3" direction={{ base: "column", sm: "row" }} mb={{ base: 3, sm: 0 }}>
+                <Button colorScheme="blue" onClick={handleEdit}>
+                Edit Event
+               </Button>
+               
+               <Button
+                 colorScheme="gray"
+                onClick={handleCancel}
+                border="2px"
+                 borderColor="gray.500"
+                >
+              Cancel
               </Button>
-            </Flex>
+          </Flex>
+        <Button colorScheme="red" onClick={handleDelete} >
+         Delete Event
+      </Button>
+      </Flex>
           </>
         ) : (
           <Text>Loading...</Text>

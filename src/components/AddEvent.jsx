@@ -6,10 +6,10 @@ import {
   FormLabel,
   Input,
   Button,
-  Text,
   Select,
   Flex,
   Heading,
+  useToast,
 } from "@chakra-ui/react";
 import { DataContext } from "../contexts/DataContext";
 import { useNavigate } from "react-router-dom"; 
@@ -23,12 +23,13 @@ export const AddEvent = () => {
     endTime: "",
     categoryIds: [], 
   });
+  
   const { categories } = useContext(DataContext); // Use DataContext to get categories
-  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "categoryIds") {
+
       // Handle multiple select for categories
       const selectedCategories = Array.from(
         e.target.selectedOptions,
@@ -40,11 +41,22 @@ export const AddEvent = () => {
     }
   };
 
+  const toast = useToast();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await postData("events", eventData);
-      setMessage("Event added successfully!");
+
+      // Display success toast
+      toast({
+        title: "Event added successfully!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom", 
+      });
+
       // Reset form fields
       setEventData({
         title: "",
@@ -55,7 +67,16 @@ export const AddEvent = () => {
         categoryIds: [],
       });
     } catch (error) {
-      setMessage("Failed to add event. Error: " + error.message);
+        
+      // Toast for error messages
+      toast({
+        title: "Failed to add event.",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
     }
   };
 
@@ -69,101 +90,100 @@ export const AddEvent = () => {
   return (
     <Flex direction="column" align="center" justify="center" minH="100vh">
       <Box
-        p={3}
         borderWidth="1px"
-        borderRadius="lg"
         boxShadow="lg"
         bg="white"
         maxWidth="700px"
         width="100%"
         mx="auto"
-        minH="90vh"
+        minH="100vh"
       >
-        <Heading as="h2" size="lg" mb={10} textAlign="center">
-          Create Event Form
+        <Heading as="h2" size="lg" mb={10} mt="50px" textAlign="center">
+          Create Event
         </Heading>
+        <Box p={4}>
+          <form onSubmit={handleSubmit}>
+            <FormControl isRequired>
+              <FormLabel htmlFor="title">Event Title</FormLabel>
+              <Input
+                id="title"
+                name="title"
+                type="text"
+                value={eventData.title}
+                onChange={handleChange}
+              />
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel htmlFor="description">Description</FormLabel>
+              <Input
+                id="description"
+                name="description"
+                type="text"
+                value={eventData.description}
+                onChange={handleChange}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel htmlFor="image">Image URL</FormLabel>
+              <Input
+                id="image"
+                name="image"
+                type="text"
+                value={eventData.image}
+                onChange={handleChange}
+              />
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel htmlFor="startTime">Start Time</FormLabel>
+              <Input
+                id="startTime"
+                name="startTime"
+                type="datetime-local"
+                value={eventData.startTime}
+                onChange={handleChange}
+              />
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel htmlFor="endTime">End Time</FormLabel>
+              <Input
+                id="endTime"
+                name="endTime"
+                type="datetime-local"
+                value={eventData.endTime}
+                onChange={handleChange}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel htmlFor="categoryIds">Categories</FormLabel>
+              <Select
+                id="categoryIds"
+                name="categoryIds"
+                onChange={handleChange}
+                placeholder="Select category"
+              >
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
 
-        <form onSubmit={handleSubmit}>
-          <FormControl isRequired>
-            <FormLabel htmlFor="title">Event Title</FormLabel>
-            <Input
-              id="title"
-              name="title"
-              type="text"
-              value={eventData.title}
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl isRequired>
-            <FormLabel htmlFor="description">Description</FormLabel>
-            <Input
-              id="description"
-              name="description"
-              type="text"
-              value={eventData.description}
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="image">Image URL</FormLabel>
-            <Input
-              id="image"
-              name="image"
-              type="text"
-              value={eventData.image}
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl isRequired>
-            <FormLabel htmlFor="startTime">Start Time</FormLabel>
-            <Input
-              id="startTime"
-              name="startTime"
-              type="datetime-local"
-              value={eventData.startTime}
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl isRequired>
-            <FormLabel htmlFor="endTime">End Time</FormLabel>
-            <Input
-              id="endTime"
-              name="endTime"
-              type="datetime-local"
-              value={eventData.endTime}
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="categoryIds">Categories</FormLabel>
-            <Select
-              id="categoryIds"
-              name="categoryIds"
-              onChange={handleChange}
-              placeholder="Select category"
-            >
-              {categories.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-
-          <Flex mt={10} justifyContent="space-between">
-            <Button colorScheme="teal" type="submit">
-              Add Event
-            </Button>
-            <Button colorScheme="gray" onClick={handleCancel}>
-              Cancel
-            </Button>
-          </Flex>
-        </form>
-        {message && (
-          <Text mt={4} color="green.500">
-            {message}
-          </Text>
-        )}
+            <Flex mt={50} justifyContent="space-between">
+              <Button colorScheme="teal" type="submit">
+                Add Event
+              </Button>
+              <Button
+                colorScheme="gray"
+                onClick={handleCancel}
+                border="2px" // Adjust border thickness as needed
+                borderColor="gray.500"
+              >
+                Cancel
+              </Button>
+            </Flex>
+          </form>
+        </Box>
       </Box>
     </Flex>
   );
