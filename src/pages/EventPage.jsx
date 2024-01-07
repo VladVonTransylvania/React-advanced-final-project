@@ -96,10 +96,15 @@ export const EventPage = () => {
     onOpen();
   };
 
+  const handleCancel = () => {
+    // Navigate to the events list page
+    navigate("/");
+  };
+
   return (
     <Flex align="center" justify="center" minH="100vh">
       <Box
-      p={4}
+        p={3}
         borderWidth="1px"
         borderRadius="lg"
         boxShadow="lg"
@@ -149,9 +154,14 @@ export const EventPage = () => {
               />
             </Box>
             <Flex justifyContent="space-between">
-              <Button colorScheme="blue" onClick={handleEdit}>
-                Edit Event
-              </Button>
+              <Flex gap="10">
+                <Button colorScheme="blue" onClick={handleEdit}>
+                  Edit Event
+                </Button>
+                <Button colorScheme="gray" onClick={handleCancel}>
+                  Cancel
+                </Button>
+              </Flex>
               <Button colorScheme="red" onClick={handleDelete}>
                 Delete Event
               </Button>

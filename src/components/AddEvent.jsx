@@ -11,7 +11,8 @@ import {
   Flex,
   Heading,
 } from "@chakra-ui/react";
-import { DataContext } from "../contexts/DataContext"; 
+import { DataContext } from "../contexts/DataContext";
+import { useNavigate } from "react-router-dom"; 
 
 export const AddEvent = () => {
   const [eventData, setEventData] = useState({
@@ -58,20 +59,28 @@ export const AddEvent = () => {
     }
   };
 
+  const navigate = useNavigate();
+
+  const handleCancel = () => {
+    // Navigate to the events list page
+    navigate("/");
+  };
+
   return (
     <Flex direction="column" align="center" justify="center" minH="100vh">
       <Box
-        p={4}
+        p={3}
         borderWidth="1px"
         borderRadius="lg"
         boxShadow="lg"
         bg="white"
-        maxWidth="800px"
+        maxWidth="700px"
         width="100%"
         mx="auto"
+        minH="90vh"
       >
-        <Heading as="h2" size="lg" mb={6} textAlign="center">
-          Add Event Form
+        <Heading as="h2" size="lg" mb={10} textAlign="center">
+          Create Event Form
         </Heading>
 
         <form onSubmit={handleSubmit}>
@@ -141,12 +150,17 @@ export const AddEvent = () => {
             </Select>
           </FormControl>
 
-          <Button mt={4} colorScheme="teal" type="submit">
-            Add Event
-          </Button>
+          <Flex mt={10} justifyContent="space-between">
+            <Button colorScheme="teal" type="submit">
+              Add Event
+            </Button>
+            <Button colorScheme="gray" onClick={handleCancel}>
+              Cancel
+            </Button>
+          </Flex>
         </form>
         {message && (
-          <Text mt={4} color="red.500">
+          <Text mt={4} color="green.500">
             {message}
           </Text>
         )}

@@ -2,8 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { fetchData } from "../util/api";
 import { DataContext } from "../contexts/DataContext";
-import { Flex, Box, Button, Text, Image, Select } from '@chakra-ui/react';
+import { Flex, Box, Button, Text, Image } from '@chakra-ui/react';
 import { SearchBar } from "../components/SearchBar"; // Import SearchBar component
+import { CategoryFilter } from "../components/CategoryFilter";
+
 
 
 export const EventsPage = () => {
@@ -65,30 +67,20 @@ export const EventsPage = () => {
 
   
 return (
+  
   <Flex direction="column" align="center" justify="flex-start" mt="20px">
 
     {/* Search Bar Container */}
     <Flex w="100%" maxW="800px" mb="20px" justifyContent="center">
-      <SearchBar onSearch={handleSearch} w="80%" />{" "}
-      {/* Same width for the search bar */}
+      <SearchBar onSearch={handleSearch} w="60%" />
     </Flex>
 
     {/* Category Filter Container */}
     <Flex w="100%" maxW="800px" mb="20px" justifyContent="center">
-      <Select
-        onChange={(e) => handleCategoryChange(e.target.value)}
-        w="50%" // Same width for the category filter
-        placeholder="All Categories"
-        _placeholder={{ color: "gray.500" }}
-      >
-        {categories.map((category) => (
-          <option key={category.id} value={category.id}>
-            {category.name}
-          </option>
-        ))}
-      </Select>
+      <CategoryFilter categories={categories} onFilter={handleCategoryChange} />
     </Flex>
 
+    {/* Add event button */}
     <Flex justifyContent="center" mb="5">
       <Link to="/add-event">
         <Button colorScheme="blue">Create an event</Button>
@@ -96,14 +88,7 @@ return (
     </Flex>
 
     {filteredEvents.map((event) => (
-      <Flex
-        
-        direction="column"
-        mb="20px"
-        key={event.id}
-        w="100%"
-        
-      >
+      <Flex direction="column" mb="20px" key={event.id} w="100%">
         <Box
           key={event.id}
           borderRadius="lg"
