@@ -48,17 +48,15 @@
       "id": 3
     },
     {
-      "id": 4,
-      "createdBy": 2,
-      "title": "Yogaaa",
-      "description": "It's a bit of a stretchhhh.",
+      "title": "Yoga",
+      "description": "It's a bit of a stretch",
       "image": "https://ymcasouthflorida.org/wp-content/uploads/2019/12/AA2I8910-scaled.jpg",
+      "startTime": "2023-03-09T07:00",
+      "endTime": "2023-03-09T09:02",
       "categoryIds": [
         3
       ],
-      "location": "Shavasana Yoga School",
-      "startTime": "2023-03-09T07:00",
-      "endTime": "2023-03-09T09:02"
+      "id": 4
     },
     {
       "title": "Winter sun",
