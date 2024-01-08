@@ -1,13 +1,15 @@
-import { ChakraProvider, Box } from '@chakra-ui/react';
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { EventPage } from './pages/EventPage';
+{
+  /* Importing necessary modules and components */
+}
+import { ChakraProvider, Box } from "@chakra-ui/react";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { EventPage } from "./pages/EventPage";
 import { EventsPage } from "/src/pages/EventsPage";
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Root } from './components/Root';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Root } from "./components/Root";
 import { AddEvent } from "./components/AddEvent";
 import { DataProvider } from "./contexts/DataContext";
-
 
 const router = createBrowserRouter([
   {

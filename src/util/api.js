@@ -67,9 +67,7 @@ export const postData = async (endpoint, data) => {
  */
 export const updateData = async (endpoint, data) => {
   try {
-    // Log the endpoint and data being sent for debugging
-    console.log("Sending PUT Request to:", endpoint);
-    console.log("Data being sent:", data);
+   
 
     const response = await fetch(`http://localhost:3000/${endpoint}`, {
       method: "PUT",
@@ -81,18 +79,12 @@ export const updateData = async (endpoint, data) => {
 
     // Check if the response status is not ok
     if (!response.ok) {
-      // Log the raw response for debugging
-      console.log("Raw Response:", response);
-
+    
       // Throw an error with response status and statusText
       throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
     }
 
-    // Assuming the response is JSON
     const responseData = await response.json();
-
-    // Log the received response data for debugging
-    console.log("Received Response Data:", responseData);
 
     return responseData;
   } catch (error) {

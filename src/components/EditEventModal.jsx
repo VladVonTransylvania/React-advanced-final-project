@@ -11,25 +11,29 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Select,
+  Checkbox,
+  Stack,
   useToast,
 } from "@chakra-ui/react";
 import { updateData } from "../util/api";
 import { DataContext } from "../contexts/DataContext";
 
-// Utility function to convert ISO datetime string to local datetime format
+// Function to convert ISO date-time to local date-time format
 function toLocalDateTimeString(isoString) {
   if (!isoString) return "";
   const date = new Date(isoString);
-  const year = date.getFullYear();
-  const month = (date.getMonth() + 1).toString().padStart(2, "0");
-  const day = date.getDate().toString().padStart(2, "0");
-  const hours = date.getHours().toString().padStart(2, "0");
-  const minutes = date.getMinutes().toString().padStart(2, "0");
-  return `${year}-${month}-${day}T${hours}:${minutes}`;
+  // Formatting date components
+  const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}T${date
+    .getHours()
+    .toString()
+    .padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
+  return formattedDate;
 }
 
 export const EditEventModal = ({ isOpen, onClose, event, onEventUpdate }) => {
+  // State for edited event data
   const [editedEvent, setEditedEvent] = useState({
     title: event?.title || "",
     description: event?.description || "",
@@ -39,10 +43,11 @@ export const EditEventModal = ({ isOpen, onClose, event, onEventUpdate }) => {
     categoryIds: event?.categoryIds || [],
   });
 
-  const { categories } = useContext(DataContext);
-  const toast = useToast();
+  const { categories } = useContext(DataContext); // Accessing categories from DataContext
+  const toast = useToast(); // Hook for showing toast notifications
 
   useEffect(() => {
+    // Effect to update state when event prop changes
     if (event) {
       setEditedEvent({
         title: event.title || "",
@@ -58,29 +63,33 @@ export const EditEventModal = ({ isOpen, onClose, event, onEventUpdate }) => {
   }, [event]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    // Handling form input changes
+    const { name, value, checked } = e.target;
     if (name === "categoryIds") {
-      const selectedOptions = Array.from(
-        e.target.selectedOptions,
-        (option) => parseInt(option.value) // Convert to integers here
-      );
-      setEditedEvent({ ...editedEvent, [name]: selectedOptions });
+      // Special handling for category checkboxes
+      const categoryId = parseInt(value);
+      const newCategories = checked
+        ? [...editedEvent.categoryIds, categoryId]
+        : editedEvent.categoryIds.filter((id) => id !== categoryId);
+
+      setEditedEvent({ ...editedEvent, categoryIds: newCategories });
     } else {
       setEditedEvent({ ...editedEvent, [name]: value });
     }
   };
 
   const updateEvent = async () => {
-    // Use editedEvent directly as categoryIds are already converted to numbers
+    // Async function to update event data
     return await updateData(`events/${event.id}`, editedEvent);
   };
 
   const handleSubmit = async () => {
+    // Handling form submission
     try {
       const response = await updateEvent();
 
       if (response) {
-        onEventUpdate ({ ...event, ...editedEvent });
+        onEventUpdate({ ...event, ...editedEvent }); // Updating parent component state
       } else {
         // Handle case where response is not as expected
         toast({
@@ -105,6 +114,8 @@ export const EditEventModal = ({ isOpen, onClose, event, onEventUpdate }) => {
     }
   };
 
+  
+    // Modal component structure 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -112,7 +123,8 @@ export const EditEventModal = ({ isOpen, onClose, event, onEventUpdate }) => {
         <ModalHeader>Edit Event</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          {/* Form controls for each field */}
+
+          {/** Form controls for each editable field of the event **/}
           <FormControl>
             <FormLabel>Title</FormLabel>
             <Input
@@ -155,20 +167,21 @@ export const EditEventModal = ({ isOpen, onClose, event, onEventUpdate }) => {
               onChange={handleChange}
             />
           </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="categoryIds">Categories</FormLabel>
-            <Select
-              id="categoryIds"
-              name="categoryIds"
-              onChange={handleChange}
-              placeholder="Select category"
-            >
+          <FormControl mt={4}>
+            <FormLabel htmlFor="categoryIds">Categories:</FormLabel>
+            <Stack>
               {categories.map((category) => (
-                <option key={category.id} value={category.id}>
+                <Checkbox
+                  key={category.id}
+                  value={String(category.id)}
+                  onChange={handleChange}
+                  isChecked={editedEvent.categoryIds.includes(category.id)}
+                  name="categoryIds"
+                >
                   {category.name}
-                </option>
+                </Checkbox>
               ))}
-            </Select>
+            </Stack>
           </FormControl>
         </ModalBody>
         <ModalFooter>
@@ -178,7 +191,7 @@ export const EditEventModal = ({ isOpen, onClose, event, onEventUpdate }) => {
           <Button
             variant="ghost"
             onClick={onClose}
-            border="2px" 
+            border="2px"
             borderColor="gray.500"
           >
             Cancel

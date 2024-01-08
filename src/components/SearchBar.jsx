@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 
 export const SearchBar = ({ onSearch }) => {
+  // State to track whether the search bar is focused
   const [isFocused, setIsFocused] = useState(false);
 
+  // Function to handle search input changes
   const handleSearch = (e) => {
+    // Call onSearch prop function with lowercase input value
     onSearch(e.target.value.toLowerCase());
   };
 
+  // Style object for the search bar, conditionally changes based on focus
   const searchBarStyle = {
     width: "80%",
     maxWidth: "600px",
@@ -23,11 +27,11 @@ export const SearchBar = ({ onSearch }) => {
   return (
     <input
       type="text"
-      placeholder="Search events"
+      placeholder="Search events..."
       onChange={handleSearch}
       onFocus={() => setIsFocused(true)}
       onBlur={() => setIsFocused(false)}
-      style={searchBarStyle}
+      style={searchBarStyle} // Apply dynamic styling based on focus state
     />
   );
 };

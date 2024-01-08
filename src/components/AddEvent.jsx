@@ -1,60 +1,66 @@
 import React, { useState, useContext } from "react";
-import { postData } from "../util/api"; 
+import { postData } from "../util/api";
 import {
   Box,
   FormControl,
   FormLabel,
   Input,
   Button,
-  Select,
+  Checkbox,
   Flex,
   Heading,
   useToast,
+  Stack,
 } from "@chakra-ui/react";
 import { DataContext } from "../contexts/DataContext";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
+// AddEvent Component: Manages the creation of new events
 export const AddEvent = () => {
+  // State for storing event data
   const [eventData, setEventData] = useState({
     title: "",
     description: "",
     image: "",
     startTime: "",
     endTime: "",
-    categoryIds: [], 
+    categoryIds: [],
   });
-  
-  const { categories } = useContext(DataContext); // Use DataContext to get categories
 
+  // Context and Hooks for functionality
+  const { categories } = useContext(DataContext); // Access categories from DataContext
+  const toast = useToast(); // Hook for showing toast notifications
+  const navigate = useNavigate(); // Hook for navigating between pages
+
+  // Handle changes in form inputs
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, checked } = e.target;
     if (name === "categoryIds") {
-
-      // Handle multiple select for categories
-      const selectedCategories = Array.from(
-        e.target.selectedOptions,
-        (option) => parseInt(option.value)
-      );
-      setEventData({ ...eventData, [name]: selectedCategories });
+      const newCategories = checked
+        ? [...eventData.categoryIds, parseInt(value)]
+        : eventData.categoryIds.filter((id) => id !== parseInt(value));
+      setEventData({ ...eventData, categoryIds: newCategories });
     } else {
       setEventData({ ...eventData, [name]: value });
     }
   };
 
-  const toast = useToast();
-
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await postData("events", eventData);
 
+    try {
+      const result = await postData("events", eventData);
+      if (!result) {
+        throw new Error("Failed to receive response from server");
+      }
       // Display success toast
       toast({
         title: "Event added successfully!",
         status: "success",
         duration: 5000,
         isClosable: true,
-        position: "bottom", 
+        position: "bottom",
       });
 
       // Reset form fields
@@ -67,26 +73,24 @@ export const AddEvent = () => {
         categoryIds: [],
       });
     } catch (error) {
-        
       // Toast for error messages
       toast({
-        title: "Failed to add event.",
-        description: error.message,
+        title: "Error",
+        description: error.message || "An unexpected error occurred",
         status: "error",
         duration: 5000,
         isClosable: true,
-        position: "top",
+        position: "bottom",
       });
     }
   };
 
-  const navigate = useNavigate();
-
+  // Handle cancel button click
   const handleCancel = () => {
-    // Navigate to the events list page
-    navigate("/");
+    navigate("/"); // Navigate to the home page
   };
 
+  // Render the form for adding events
   return (
     <Flex direction="column" align="center" justify="center" minH="100vh">
       <Box
@@ -153,20 +157,21 @@ export const AddEvent = () => {
                 onChange={handleChange}
               />
             </FormControl>
-            <FormControl>
-              <FormLabel htmlFor="categoryIds">Categories</FormLabel>
-              <Select
-                id="categoryIds"
-                name="categoryIds"
-                onChange={handleChange}
-                placeholder="Select category"
-              >
+            <FormControl mt={4}>
+              <FormLabel htmlFor="categoryIds">Categories:</FormLabel>
+              <Stack>
                 {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
+                  <Checkbox
+                    key={category.id}
+                    value={String(category.id)} // Ensure value is a string
+                    onChange={handleChange}
+                    isChecked={eventData.categoryIds.includes(category.id)}
+                    name="categoryIds"
+                  >
                     {category.name}
-                  </option>
+                  </Checkbox>
                 ))}
-              </Select>
+              </Stack>
             </FormControl>
 
             <Flex mt={50} justifyContent="space-between">
@@ -176,10 +181,10 @@ export const AddEvent = () => {
               <Button
                 colorScheme="gray"
                 onClick={handleCancel}
-                border="2px" // Adjust border thickness as needed
+                border="2px" 
                 borderColor="gray.500"
               >
-                Cancel
+                Go Back
               </Button>
             </Flex>
           </form>

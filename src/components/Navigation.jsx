@@ -3,7 +3,10 @@ import { Link as ReactRouterLink, useLocation } from "react-router-dom";
 import { Flex, Link } from "@chakra-ui/react";
 
 export const Navigation = () => {
+  // useLocation hook to access the current URL location
   const location = useLocation();
+
+  // useLocation hook to access the current URL location
   const isEventPage = location.pathname.startsWith("/event/");
 
   return (
@@ -11,7 +14,7 @@ export const Navigation = () => {
       as="nav"
       bg="blue.500"
       color="white"
-      p={5}
+      p={7}
       justifyContent="space-around"
     >
       {/* Link to the main events page */}
@@ -22,7 +25,7 @@ export const Navigation = () => {
       {/* Conditionally render the link to the specific event if on an event page */}
       {isEventPage && (
         <Link as={ReactRouterLink} to={location.pathname}>
-         Event
+          Event
         </Link>
       )}
     </Flex>
