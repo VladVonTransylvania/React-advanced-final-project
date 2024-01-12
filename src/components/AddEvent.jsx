@@ -96,15 +96,24 @@ export const AddEvent = () => {
       <Box
         borderWidth="1px"
         boxShadow="lg"
-        bg="white"
+        bg="#FDFDFD"
         maxWidth="700px"
         width="100%"
         mx="auto"
         minH="100vh"
       >
-        <Heading as="h2" size="lg" mb={10} mt="50px" textAlign="center">
+        <Heading
+          as="h2"
+          size="lg"
+          mb={10}
+          mt="50px"
+          textAlign="center"
+          bg="rgba(240, 248, 255, 0.9)"
+          p={4}
+        >
           Create Event
         </Heading>
+
         <Box p={4}>
           <form onSubmit={handleSubmit}>
             <FormControl isRequired>
@@ -181,7 +190,7 @@ export const AddEvent = () => {
               <Button
                 colorScheme="gray"
                 onClick={handleCancel}
-                border="2px" 
+                border="2px"
                 borderColor="gray.500"
               >
                 Go Back

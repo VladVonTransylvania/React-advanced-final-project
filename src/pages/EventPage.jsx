@@ -139,10 +139,11 @@ export const EventPage = () => {
               alt={event.title}
               mb={4}
               borderRadius="md"
+              m="0 auto"
             />
 
             {/* Display the event description */}
-            <Text fontSize="md" mb={2}>
+            <Text fontSize="md" mb={2} marginTop="20px">
               {event.description}
             </Text>
 
@@ -181,7 +182,11 @@ export const EventPage = () => {
             </Box>
 
             {/* Display action buttons for editing and deleting the event */}
-            <Flex justifyContent="space-between" flexWrap="wrap">
+            <Flex
+              justifyContent="space-between"
+              flexWrap="wrap"
+              marginTop="100px"
+            >
               <Flex
                 gap="3"
                 direction={{ base: "column", sm: "row" }}

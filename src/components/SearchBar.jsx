@@ -19,8 +19,8 @@ export const SearchBar = ({ onSearch }) => {
     borderRadius: "5px",
     backgroundColor: isFocused ? "#ffffff" : "#f8f8f8", // Lighter background when not focused
     boxShadow: isFocused
-      ? "0 2px 8px rgba(0, 123, 255, 0.2)"
-      : "0 2px 4px rgba(0, 0, 0, 0.9)", // More pronounced shadow when focused
+      ? "0 2px 4px rgba(0, 0, 0, 0.1)" // Less pronounced shadow when focused
+      : "0 2px 8px rgba(0, 123, 255, 0.6)",
     transition: "border-color 0.3s, box-shadow 0.3s, background-color 0.3s", // Smooth transition for focus effect
   };
 

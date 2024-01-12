@@ -73,14 +73,16 @@ export const EventsPage = () => {
   };
 
   return (
+
+    
     <Flex direction="column" align="center" justify="flex-start" mt="20px">
       {/* Search Bar */}
-      <Flex w="100%" maxW="800px" mb="20px" justifyContent="center">
+      <Flex w="100%" maxW="800px" mb="10px" justifyContent="center">
         <SearchBar onSearch={handleSearch} w="60%" />
       </Flex>
 
       {/* Category Filter */}
-      <Flex w="100%" maxW="800px" mb="20px" justifyContent="center">
+      <Flex w="100%" maxW="800px" mb="10px" justifyContent="center" >
         <CategoryFilter
           categories={categories}
           onFilter={handleCategoryChange}
@@ -88,9 +90,18 @@ export const EventsPage = () => {
       </Flex>
 
       {/* Button to create new event */}
-      <Flex justifyContent="center" mb="5">
+      <Flex justifyContent="center" mb="20">
         <Link to="/add-event">
-          <Button colorScheme="blue">Create an event</Button>
+          <Button
+            colorScheme="blue"
+            _hover={{
+              transform: "translateY(-2px)",
+              boxShadow: "0px 0px 15px 5px rgba(0, 126, 255, 0.2)",
+              transition: "all 0.2s ease-in-out",
+            }}
+          >
+            Create an event
+          </Button>
         </Link>
       </Flex>
 
@@ -104,13 +115,15 @@ export const EventsPage = () => {
             p="4"
             mb="20px"
             boxShadow="md"
-            bg="rgba(255, 255, 255, 0.8)"
-            backdropFilter="blur(10px)"
+            bg="#FDFDFD"
             w="100%"
             maxW="800px"
             textAlign="center"
             m="0 auto"
-            _hover={{ boxShadow: "xl" }}
+            _hover={{
+              boxShadow:
+                "0 -4px 8px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.15)",
+            }}
           >
             <Link to={`/event/${event.id}`}>
               <Text fontSize="xl" fontWeight="bold">
@@ -119,8 +132,10 @@ export const EventsPage = () => {
               <Image
                 src={event.image}
                 alt={event.title}
+                borderRadius="md"
                 maxWidth="100%"
                 height="auto"
+                m="0 auto"
               />
               <Text>{event.description}</Text>
               <Text>
