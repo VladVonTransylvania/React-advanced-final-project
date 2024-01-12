@@ -100,9 +100,7 @@ export const EditEventModal = ({ isOpen, onClose, event, onEventUpdate }) => {
         });
       }
       onClose();
-
     } catch (error) {
-
       toast({
         title: "Failed to update event.",
         description: error.message,
@@ -114,8 +112,14 @@ export const EditEventModal = ({ isOpen, onClose, event, onEventUpdate }) => {
     }
   };
 
-  
-    // Modal component structure 
+  // Unique IDs for form elements based on event ID
+  const titleId = `event-${event?.id}-title`;
+  const descriptionId = `event-${event?.id}-description`;
+  const imageId = `event-${event?.id}-image`;
+  const startTimeId = `event-${event?.id}-startTime`;
+  const endTimeId = `event-${event?.id}-endTime`;
+
+  // Modal component structure
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -123,35 +127,38 @@ export const EditEventModal = ({ isOpen, onClose, event, onEventUpdate }) => {
         <ModalHeader>Edit Event</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-
           {/** Form controls for each editable field of the event **/}
           <FormControl>
-            <FormLabel>Title</FormLabel>
+            <FormLabel htmlFor={titleId}>Title</FormLabel>
             <Input
+              id={titleId}
               name="title"
               value={editedEvent.title}
               onChange={handleChange}
             />
           </FormControl>
           <FormControl>
-            <FormLabel>Description</FormLabel>
+            <FormLabel htmlFor={descriptionId}>Description</FormLabel>
             <Input
+              id={descriptionId}
               name="description"
               value={editedEvent.description}
               onChange={handleChange}
             />
           </FormControl>
           <FormControl>
-            <FormLabel>Image URL</FormLabel>
+            <FormLabel htmlFor={imageId}>Image URL</FormLabel>
             <Input
+              id={imageId}
               name="image"
               value={editedEvent.image}
               onChange={handleChange}
             />
           </FormControl>
           <FormControl>
-            <FormLabel>Start Time</FormLabel>
+            <FormLabel htmlFor={startTimeId}>Start Time</FormLabel>
             <Input
+              id={startTimeId}
               name="startTime"
               type="datetime-local"
               value={editedEvent.startTime}
@@ -159,8 +166,9 @@ export const EditEventModal = ({ isOpen, onClose, event, onEventUpdate }) => {
             />
           </FormControl>
           <FormControl>
-            <FormLabel>End Time</FormLabel>
+            <FormLabel htmlFor={endTimeId}>End Time</FormLabel>
             <Input
+              id={endTimeId}
               name="endTime"
               type="datetime-local"
               value={editedEvent.endTime}
@@ -173,6 +181,7 @@ export const EditEventModal = ({ isOpen, onClose, event, onEventUpdate }) => {
               {categories.map((category) => (
                 <Checkbox
                   key={category.id}
+                  id={`event-${event?.id}-category-${category.id}`}
                   value={String(category.id)}
                   onChange={handleChange}
                   isChecked={editedEvent.categoryIds.includes(category.id)}
@@ -191,7 +200,7 @@ export const EditEventModal = ({ isOpen, onClose, event, onEventUpdate }) => {
           <Button
             variant="ghost"
             onClick={onClose}
-            border="2px"
+            border="1px"
             borderColor="gray.500"
           >
             Cancel

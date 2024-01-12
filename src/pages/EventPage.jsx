@@ -117,7 +117,6 @@ export const EventPage = () => {
     <Flex align="center" justify="center" minH="100vh">
       <Box
         p={3}
-        borderWidth="1px"
         boxShadow="lg"
         bg="white"
         maxWidth="800px"
@@ -129,82 +128,115 @@ export const EventPage = () => {
         {event ? (
           <>
             {/* Display the event title */}
-            <Heading as="h1" size="xl" mb={4}>
+            <Heading
+              as="h1"
+              size="xl"
+              bg="rgba(240, 248, 255, 0.9)"
+              py="20px" // Apply padding of 20px on top and bottom
+              mb="20px"
+            >
               {event.title}
             </Heading>
 
             {/* Display the event image */}
-            <Image
-              src={event.image}
-              alt={event.title}
-              mb={4}
-              borderRadius="md"
-              m="0 auto"
-            />
+            <Flex
+              alignItems="center"
+              justifyContent="center"
+              flexDirection="column"
+              bg="rgba(240, 248, 255, 0.9)"
+              pt="25px"
+            >
+              <Image
+                src={event.image}
+                alt={event.title}
+                mb={4}
+                borderRadius="md"
+                m="0 auto"
+                bg="rgba(240, 248, 255, 0.9)"
+              />
 
-            {/* Display the event description */}
-            <Text fontSize="md" mb={2} marginTop="20px">
-              {event.description}
-            </Text>
+              {/* Display the event description */}
+              <Text fontSize="md" mb={2} marginTop="20px">
+                {event.description}
+              </Text>
 
-            {/* Display event start and end times */}
-            <Text mb={2}>
-              Start Time: {new Date(event.startTime).toLocaleString()}
-            </Text>
-            <Text mb={2}>
-              End Time: {new Date(event.endTime).toLocaleString()}
-            </Text>
+              {/* Display event start and end times */}
+              <Text mb={2}>
+                Start Time: {new Date(event.startTime).toLocaleString()}
+              </Text>
+              <Text mb={2}>
+                End Time: {new Date(event.endTime).toLocaleString()}
+              </Text>
 
-            {/* Display event categories using tags */}
-            <Box mb={4}>
-              Categories:{" "}
-              {getEventCategories(event.categoryIds).map((category, index) => (
-                <Tag key={index} mr={2}>
-                  {category}
-                </Tag>
-              ))}
-            </Box>
+              {/* Display event categories using tags */}
+              <Box mb={4}>
+                Categories:{" "}
+                {getEventCategories(event.categoryIds).map(
+                  (category, index) => (
+                    <Tag key={index} mr={2}>
+                      {category}
+                    </Tag>
+                  )
+                )}
+              </Box>
+            </Flex>
 
             {/** Display the name and image of the event creator */}
-            <Box mb={4}>
-              Created By:{" "}
-              <Text as="span" fontWeight="bold" display="block">
-                {getEventCreator(event.createdBy).name}
-              </Text>
-              <Flex justifyContent="center">
+            <Box
+              mb={4}
+              bg="rgba(240, 248, 255, 0.9)"
+              py="20px" // Apply padding of 20px on top and bottom
+            >
+              <Flex alignItems="center" justifyContent="center">
                 <Image
                   src={getEventCreator(event.createdBy).image}
                   alt={getEventCreator(event.createdBy).name}
                   boxSize="100px"
-                  ml={2}
+                  mr={10} // Margin right to add space between image and text
                 />
+                <Text as="span" fontWeight="bold">
+                  Created By: {getEventCreator(event.createdBy).name}
+                </Text>
               </Flex>
             </Box>
 
             {/* Display action buttons for editing and deleting the event */}
             <Flex
-              justifyContent="space-between"
-              flexWrap="wrap"
-              marginTop="100px"
+              bg="rgba(240, 248, 255, 0.9)"
+              pt="10"
+              pb="10"
+              pl="5"
+              pr="5"
+              flexDirection={{ base: "column", sm: "row" }} // Column on small screens, row on larger
+              alignItems="center" // Center items vertically
+              justifyContent={{ base: "center", sm: "space-between" }} // Center on small screens, space between on larger
             >
+              {/* Flex container for 'Edit Event' and 'Go Back' buttons */}
               <Flex
-                gap="3"
-                direction={{ base: "column", sm: "row" }}
-                mb={{ base: 3, sm: 0 }}
+                direction={{ base: "column", sm: "row" }} // Column on small screens, row on larger
+                mb={{ base: 4, sm: 0 }} // Margin bottom on small screens
+                alignItems="center" // Center items horizontally in the Flex container
               >
-                <Button colorScheme="blue" onClick={handleEdit}>
+                <Button
+                  colorScheme="blue"
+                  onClick={handleEdit}
+                  mb={{ base: 4, sm: 0 }}
+                  mr={{ sm: 10 }}
+                >
                   Edit Event
                 </Button>
 
                 <Button
                   colorScheme="gray"
                   onClick={handleCancel}
-                  border="2px"
+                  border="1px"
                   borderColor="gray.500"
                 >
                   Go Back
                 </Button>
               </Flex>
+
+              {/* 'Delete Event' button */}
               <Button colorScheme="red" onClick={handleDelete}>
                 Delete Event
               </Button>

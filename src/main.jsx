@@ -1,6 +1,3 @@
-{
-  /* Importing necessary modules and components */
-}
 import { ChakraProvider, Box } from "@chakra-ui/react";
 import React from "react";
 import ReactDOM from "react-dom/client";

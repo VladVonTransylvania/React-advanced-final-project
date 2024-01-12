@@ -10,14 +10,12 @@ import {
   Flex,
   Heading,
   useToast,
-  Stack,
+  Stack
 } from "@chakra-ui/react";
 import { DataContext } from "../contexts/DataContext";
 import { useNavigate } from "react-router-dom";
 
-// AddEvent Component: Manages the creation of new events
 export const AddEvent = () => {
-  // State for storing event data
   const [eventData, setEventData] = useState({
     title: "",
     description: "",
@@ -27,12 +25,10 @@ export const AddEvent = () => {
     categoryIds: [],
   });
 
-  // Context and Hooks for functionality
-  const { categories } = useContext(DataContext); // Access categories from DataContext
-  const toast = useToast(); // Hook for showing toast notifications
-  const navigate = useNavigate(); // Hook for navigating between pages
+  const { categories } = useContext(DataContext);
+  const toast = useToast();
+  const navigate = useNavigate();
 
-  // Handle changes in form inputs
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
     if (name === "categoryIds") {
@@ -45,16 +41,13 @@ export const AddEvent = () => {
     }
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const result = await postData("events", eventData);
       if (!result) {
         throw new Error("Failed to receive response from server");
       }
-      // Display success toast
       toast({
         title: "Event added successfully!",
         status: "success",
@@ -62,8 +55,6 @@ export const AddEvent = () => {
         isClosable: true,
         position: "bottom",
       });
-
-      // Reset form fields
       setEventData({
         title: "",
         description: "",
@@ -73,7 +64,6 @@ export const AddEvent = () => {
         categoryIds: [],
       });
     } catch (error) {
-      // Toast for error messages
       toast({
         title: "Error",
         description: error.message || "An unexpected error occurred",
@@ -85,12 +75,17 @@ export const AddEvent = () => {
     }
   };
 
-  // Handle cancel button click
   const handleCancel = () => {
-    navigate("/"); // Navigate to the home page
+    navigate("/");
   };
 
-  // Render the form for adding events
+  // Unique IDs for form elements based on data structure
+  const titleId = "event-title";
+  const descriptionId = "event-description";
+  const imageId = "event-image";
+  const startTimeId = "event-startTime";
+  const endTimeId = "event-endTime";
+
   return (
     <Flex direction="column" align="center" justify="center" minH="100vh">
       <Box
@@ -102,24 +97,23 @@ export const AddEvent = () => {
         mx="auto"
         minH="100vh"
       >
-        <Heading
-          as="h2"
-          size="lg"
-          mb={10}
-          mt="50px"
-          textAlign="center"
-          bg="rgba(240, 248, 255, 0.9)"
-          p={4}
-        >
-          Create Event
-        </Heading>
-
         <Box p={4}>
+          <Heading
+            as="h2"
+            size="lg"
+            mb={10}
+            mt="50px"
+            textAlign="center"
+            bg="rgba(240, 248, 255, 0.9)"
+            p={5}
+          >
+            Create Event
+          </Heading>
           <form onSubmit={handleSubmit}>
             <FormControl isRequired>
-              <FormLabel htmlFor="title">Event Title</FormLabel>
+              <FormLabel htmlFor={titleId}>Event Title</FormLabel>
               <Input
-                id="title"
+                id="event-title"
                 name="title"
                 type="text"
                 value={eventData.title}
@@ -127,9 +121,9 @@ export const AddEvent = () => {
               />
             </FormControl>
             <FormControl isRequired>
-              <FormLabel htmlFor="description">Description</FormLabel>
+              <FormLabel htmlFor={descriptionId}>Description</FormLabel>
               <Input
-                id="description"
+                id="event-description"
                 name="description"
                 type="text"
                 value={eventData.description}
@@ -137,9 +131,9 @@ export const AddEvent = () => {
               />
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor="image">Image URL</FormLabel>
+              <FormLabel htmlFor={imageId}>Image URL</FormLabel>
               <Input
-                id="image"
+                id="event-image"
                 name="image"
                 type="text"
                 value={eventData.image}
@@ -147,9 +141,9 @@ export const AddEvent = () => {
               />
             </FormControl>
             <FormControl isRequired>
-              <FormLabel htmlFor="startTime">Start Time</FormLabel>
+              <FormLabel htmlFor={startTimeId}>Start Time</FormLabel>
               <Input
-                id="startTime"
+                id="event-startTime"
                 name="startTime"
                 type="datetime-local"
                 value={eventData.startTime}
@@ -157,9 +151,9 @@ export const AddEvent = () => {
               />
             </FormControl>
             <FormControl isRequired>
-              <FormLabel htmlFor="endTime">End Time</FormLabel>
+              <FormLabel htmlFor={endTimeId}>End Time</FormLabel>
               <Input
-                id="endTime"
+                id="event-endTime"
                 name="endTime"
                 type="datetime-local"
                 value={eventData.endTime}
@@ -167,12 +161,13 @@ export const AddEvent = () => {
               />
             </FormControl>
             <FormControl mt={4}>
-              <FormLabel htmlFor="categoryIds">Categories:</FormLabel>
+              <FormLabel>Categories:</FormLabel>
               <Stack>
                 {categories.map((category) => (
                   <Checkbox
                     key={category.id}
-                    value={String(category.id)} // Ensure value is a string
+                    value={String(category.id)}
+                    id={`category-${category.id}`}
                     onChange={handleChange}
                     isChecked={eventData.categoryIds.includes(category.id)}
                     name="categoryIds"
@@ -182,8 +177,12 @@ export const AddEvent = () => {
                 ))}
               </Stack>
             </FormControl>
-
-            <Flex mt={50} justifyContent="space-between">
+            <Flex
+              mt={50}
+              justifyContent="space-between"
+              bg="rgba(240, 248, 255, 0.9)"
+              p={6}
+            >
               <Button colorScheme="teal" type="submit">
                 Add Event
               </Button>

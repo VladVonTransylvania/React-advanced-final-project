@@ -73,8 +73,6 @@ export const EventsPage = () => {
   };
 
   return (
-
-    
     <Flex direction="column" align="center" justify="flex-start" mt="20px">
       {/* Search Bar */}
       <Flex w="100%" maxW="800px" mb="10px" justifyContent="center">
@@ -82,7 +80,7 @@ export const EventsPage = () => {
       </Flex>
 
       {/* Category Filter */}
-      <Flex w="100%" maxW="800px" mb="10px" justifyContent="center" >
+      <Flex w="100%" maxW="800px" mb="10px" justifyContent="center">
         <CategoryFilter
           categories={categories}
           onFilter={handleCategoryChange}
@@ -100,43 +98,43 @@ export const EventsPage = () => {
               transition: "all 0.2s ease-in-out",
             }}
           >
-            Create an event
+            Create Event
           </Button>
         </Link>
       </Flex>
 
       {/* Display of filtered events */}
       {filteredEvents.map((event) => (
-        <Flex direction="column" mb="20px" key={event.id} w="100%">
+        <Flex direction="column" mb="30px" key={event.id} w="100%">
           <Box
             key={event.id}
             borderRadius="lg"
-            overflow="hidden"
-            p="4"
-            mb="20px"
             boxShadow="md"
-            bg="#FDFDFD"
+            bg="rgba(240, 248, 255, 1.5)"
             w="100%"
-            maxW="800px"
+            maxW="700px"
             textAlign="center"
             m="0 auto"
+            p="2px"
             _hover={{
               boxShadow:
                 "0 -4px 8px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.15)",
             }}
           >
             <Link to={`/event/${event.id}`}>
-              <Text fontSize="xl" fontWeight="bold">
+              <Text fontSize="xl" fontWeight="bold" mb="10px">
                 {event.title}
               </Text>
+              <Flex justifyContent="center"></Flex>
               <Image
                 src={event.image}
                 alt={event.title}
                 borderRadius="md"
                 maxWidth="100%"
                 height="auto"
-                m="0 auto"
+                mb="10px"
               />
+              
               <Text>{event.description}</Text>
               <Text>
                 Start Time: {new Date(event.startTime).toLocaleString()}

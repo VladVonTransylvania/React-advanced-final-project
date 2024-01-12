@@ -16,14 +16,14 @@
       "id": 1,
       "createdBy": 1,
       "title": "Trampoline party",
-      "description": "Bounce around with your friends",
+      "description": "Bounce around with your friends!",
       "image": "https://i.pinimg.com/736x/3d/2f/af/3d2faf4e3188d34a9fcdc00df59e77b0.jpg",
       "categoryIds": [
         2
       ],
       "location": "My back yard",
       "startTime": "2023-03-10T18:00",
-      "endTime": "2023-03-10T17:00:00.000Z"
+      "endTime": "2023-03-10T20:00"
     },
     {
       "id": 2,
@@ -36,7 +36,7 @@
       ],
       "location": "Blinded by the Lights Laser Tag, 15 Main St.",
       "startTime": "2023-04-06T18:46",
-      "endTime": "2023-04-06T17:46"
+      "endTime": "2023-04-06T19:46"
     },
     {
       "id": 3,
