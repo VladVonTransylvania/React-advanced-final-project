@@ -90,14 +90,18 @@ export const AddEvent = () => {
     <Flex direction="column" align="center" justify="center" minH="100vh">
       <Box
         borderWidth="1px"
-        boxShadow="lg"
         bg="#FDFDFD"
         maxWidth="700px"
         width="100%"
         mx="auto"
         minH="100vh"
       >
-        <Box p={4}>
+        <Box
+          p={4}
+          boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
+          mt="50px" // Margin top of 20 pixels
+          mb="50px" // Margin bottom of 20 pixels
+        >
           <Heading
             as="h2"
             size="lg"
@@ -106,9 +110,11 @@ export const AddEvent = () => {
             textAlign="center"
             bg="rgba(240, 248, 255, 0.9)"
             p={5}
+            boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
           >
             Create Event
           </Heading>
+
           <form onSubmit={handleSubmit}>
             <FormControl isRequired>
               <FormLabel htmlFor={titleId}>Event Title</FormLabel>
@@ -182,6 +188,8 @@ export const AddEvent = () => {
               justifyContent="space-between"
               bg="rgba(240, 248, 255, 0.9)"
               p={6}
+              boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
+              mb="50px"
             >
               <Button colorScheme="teal" type="submit">
                 Add Event

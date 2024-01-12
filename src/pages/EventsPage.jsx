@@ -122,7 +122,7 @@ export const EventsPage = () => {
             }}
           >
             <Link to={`/event/${event.id}`}>
-              <Text fontSize="xl" fontWeight="bold" mb="10px">
+              <Text fontSize="xl" fontWeight="bold" mb="20px" mt="20px">
                 {event.title}
               </Text>
               <Flex justifyContent="center"></Flex>
@@ -130,17 +130,19 @@ export const EventsPage = () => {
                 src={event.image}
                 alt={event.title}
                 borderRadius="md"
+                objectFit="cover"
                 maxWidth="100%"
                 height="auto"
                 mb="10px"
+                mx="auto"
+                boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
               />
-              
-              <Text>{event.description}</Text>
+              <Text mt="20px">{event.description}</Text>
               <Text>
                 Start Time: {new Date(event.startTime).toLocaleString()}
               </Text>
               <Text>End Time: {new Date(event.endTime).toLocaleString()}</Text>
-              <Text>
+              <Text mb="50px">
                 Categories: {getCategoryNames(event.categoryIds)}
               </Text>{" "}
             </Link>

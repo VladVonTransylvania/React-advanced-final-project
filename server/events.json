@@ -23,7 +23,7 @@
       ],
       "location": "My back yard",
       "startTime": "2023-03-10T18:00",
-      "endTime": "2023-03-10T20:00"
+      "endTime": "2023-03-16T20:00"
     },
     {
       "id": 2,
@@ -62,8 +62,19 @@
         3
       ],
       "location": "Shavasana Yoga School",
-      "startTime": "2023-03-09T06:00:00.000Z",
-      "endTime": "2023-03-09T07:00:00.000Z"
+      "startTime": "2023-03-09T07:00",
+      "endTime": "2023-03-09T08:00"
+    },
+    {
+      "title": "nngfn",
+      "description": "nnghng",
+      "image": "https://cdn.pixabay.com/photo/2023/12/10/18/34/man-8442149_960_720.png",
+      "startTime": "2024-01-11T09:31",
+      "endTime": "2024-01-13T09:31",
+      "categoryIds": [
+        3
+      ],
+      "id": 5
     }
   ],
   "categories": [

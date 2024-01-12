@@ -118,12 +118,13 @@ export const EditEventModal = ({ isOpen, onClose, event, onEventUpdate }) => {
   const imageId = `event-${event?.id}-image`;
   const startTimeId = `event-${event?.id}-startTime`;
   const endTimeId = `event-${event?.id}-endTime`;
+  const categoryId = `event-${event?.id}-categories-label`;
 
   // Modal component structure
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)">
         <ModalHeader>Edit Event</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
@@ -176,7 +177,7 @@ export const EditEventModal = ({ isOpen, onClose, event, onEventUpdate }) => {
             />
           </FormControl>
           <FormControl mt={4}>
-            <FormLabel htmlFor="categoryIds">Categories:</FormLabel>
+            <FormLabel id={categoryId}>Categories:</FormLabel>
             <Stack>
               {categories.map((category) => (
                 <Checkbox

@@ -134,6 +134,7 @@ export const EventPage = () => {
               bg="rgba(240, 248, 255, 0.9)"
               py="20px" // Apply padding of 20px on top and bottom
               mb="20px"
+              boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
             >
               {event.title}
             </Heading>
@@ -145,6 +146,7 @@ export const EventPage = () => {
               flexDirection="column"
               bg="rgba(240, 248, 255, 0.9)"
               pt="25px"
+              boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
             >
               <Image
                 src={event.image}
@@ -153,6 +155,7 @@ export const EventPage = () => {
                 borderRadius="md"
                 m="0 auto"
                 bg="rgba(240, 248, 255, 0.9)"
+                boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
               />
 
               {/* Display the event description */}
@@ -186,6 +189,7 @@ export const EventPage = () => {
               mb={4}
               bg="rgba(240, 248, 255, 0.9)"
               py="20px" // Apply padding of 20px on top and bottom
+              boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
             >
               <Flex alignItems="center" justifyContent="center">
                 <Image
@@ -210,6 +214,7 @@ export const EventPage = () => {
               flexDirection={{ base: "column", sm: "row" }} // Column on small screens, row on larger
               alignItems="center" // Center items vertically
               justifyContent={{ base: "center", sm: "space-between" }} // Center on small screens, space between on larger
+              boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
             >
               {/* Flex container for 'Edit Event' and 'Go Back' buttons */}
               <Flex
