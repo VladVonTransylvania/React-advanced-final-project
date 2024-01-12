@@ -116,10 +116,10 @@ export const EventPage = () => {
   return (
     <Flex align="center" justify="center" minH="100vh">
       <Box
-        p={3}
+        p={6}
         boxShadow="lg"
         bg="white"
-        maxWidth="800px"
+        maxWidth="900px"
         width="100%"
         mx="auto"
         textAlign="center"
@@ -131,10 +131,11 @@ export const EventPage = () => {
             <Heading
               as="h1"
               size="xl"
-              bg="rgba(240, 248, 255, 0.9)"
-              py="20px" // Apply padding of 20px on top and bottom
-              mb="20px"
+              bg="rgba(240, 248, 255, 1.5)"
+              p="30px"
               boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
+              borderRadius="10px"
+              mb={6}
             >
               {event.title}
             </Heading>
@@ -145,17 +146,21 @@ export const EventPage = () => {
               justifyContent="center"
               flexDirection="column"
               bg="rgba(240, 248, 255, 0.9)"
-              pt="25px"
+              pt="15px"
+              pb="25px"
               boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
+              borderRadius="10px"
+              mb={6}
             >
               <Image
                 src={event.image}
                 alt={event.title}
                 mb={4}
-                borderRadius="md"
+                borderRadius="10px"
                 m="0 auto"
                 bg="rgba(240, 248, 255, 0.9)"
                 boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
+                mt={6}
               />
 
               {/* Display the event description */}
@@ -186,28 +191,31 @@ export const EventPage = () => {
 
             {/** Display the name and image of the event creator */}
             <Box
-              mb={4}
               bg="rgba(240, 248, 255, 0.9)"
-              py="20px" // Apply padding of 20px on top and bottom
+              py="25px" // Apply padding of 20px on top and bottom
               boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
+              borderRadius="10px"
+              mb={6}
             >
               <Flex alignItems="center" justifyContent="center">
+                <Text as="span" fontWeight="bold" mr={10}>
+                  Created By: {getEventCreator(event.createdBy).name}
+                </Text>
                 <Image
                   src={getEventCreator(event.createdBy).image}
                   alt={getEventCreator(event.createdBy).name}
                   boxSize="100px"
-                  mr={10} // Margin right to add space between image and text
+                  mr={3} // Margin right to add space between image and text
+                  borderRadius="5px"
+                  boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
                 />
-                <Text as="span" fontWeight="bold">
-                  Created By: {getEventCreator(event.createdBy).name}
-                </Text>
               </Flex>
             </Box>
 
             {/* Display action buttons for editing and deleting the event */}
             <Flex
               bg="rgba(240, 248, 255, 0.9)"
-              pt="10"
+              pt="5"
               pb="10"
               pl="5"
               pr="5"
@@ -215,18 +223,21 @@ export const EventPage = () => {
               alignItems="center" // Center items vertically
               justifyContent={{ base: "center", sm: "space-between" }} // Center on small screens, space between on larger
               boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
+              borderRadius="10px"
             >
               {/* Flex container for 'Edit Event' and 'Go Back' buttons */}
               <Flex
                 direction={{ base: "column", sm: "row" }} // Column on small screens, row on larger
                 mb={{ base: 4, sm: 0 }} // Margin bottom on small screens
                 alignItems="center" // Center items horizontally in the Flex container
+                mt={5}
               >
                 <Button
                   colorScheme="blue"
                   onClick={handleEdit}
                   mb={{ base: 4, sm: 0 }}
                   mr={{ sm: 10 }}
+                  boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
                 >
                   Edit Event
                 </Button>
@@ -236,13 +247,19 @@ export const EventPage = () => {
                   onClick={handleCancel}
                   border="1px"
                   borderColor="gray.500"
+                  boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
                 >
                   Go Back
                 </Button>
               </Flex>
 
               {/* 'Delete Event' button */}
-              <Button colorScheme="red" onClick={handleDelete}>
+              <Button
+                colorScheme="red"
+                onClick={handleDelete}
+                mt={5}
+                boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
+              >
                 Delete Event
               </Button>
             </Flex>

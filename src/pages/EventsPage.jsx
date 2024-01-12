@@ -73,7 +73,7 @@ export const EventsPage = () => {
   };
 
   return (
-    <Flex direction="column" align="center" justify="flex-start" mt="20px">
+    <Flex direction="column" align="center" justify="flex-start" mt="30px">
       {/* Search Bar */}
       <Flex w="100%" maxW="800px" mb="10px" justifyContent="center">
         <SearchBar onSearch={handleSearch} w="60%" />
@@ -108,11 +108,11 @@ export const EventsPage = () => {
         <Flex direction="column" mb="30px" key={event.id} w="100%">
           <Box
             key={event.id}
-            borderRadius="lg"
+            borderRadius="10px"
             boxShadow="md"
             bg="rgba(240, 248, 255, 1.5)"
             w="100%"
-            maxW="700px"
+            maxW="800px"
             textAlign="center"
             m="0 auto"
             p="2px"

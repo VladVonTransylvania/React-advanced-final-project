@@ -124,7 +124,7 @@ export const EditEventModal = ({ isOpen, onClose, event, onEventUpdate }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)">
+      <ModalContent>
         <ModalHeader>Edit Event</ModalHeader>
         <ModalCloseButton />
         <ModalBody>

@@ -10,7 +10,8 @@ import {
   Flex,
   Heading,
   useToast,
-  Stack
+  Stack,
+  Text
 } from "@chakra-ui/react";
 import { DataContext } from "../contexts/DataContext";
 import { useNavigate } from "react-router-dom";
@@ -97,20 +98,19 @@ export const AddEvent = () => {
         minH="100vh"
       >
         <Box
-          p={4}
-          boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
-          mt="50px" // Margin top of 20 pixels
-          mb="50px" // Margin bottom of 20 pixels
+          p={5}
+          boxShadow="inset 0px 0px 15px 5px rgba(173, 216, 230, 0.2), inset 0px 0px 20px 10px rgba(135, 206, 250, 0.2)"
         >
           <Heading
             as="h2"
             size="lg"
-            mb={10}
-            mt="50px"
+            mb="50px"
+            mt="25px"
             textAlign="center"
             bg="rgba(240, 248, 255, 0.9)"
             p={5}
             boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
+            borderRadius="15px"
           >
             Create Event
           </Heading>
@@ -166,7 +166,7 @@ export const AddEvent = () => {
                 onChange={handleChange}
               />
             </FormControl>
-            <FormControl mt={4}>
+            <FormControl mt={8}>
               <FormLabel>Categories:</FormLabel>
               <Stack>
                 {categories.map((category) => (
@@ -182,16 +182,24 @@ export const AddEvent = () => {
                   </Checkbox>
                 ))}
               </Stack>
+              <Text fontSize="sm" color="red.500" mt={7}>
+                *** Fields marked with * are mandatory
+              </Text>
             </FormControl>
             <Flex
-              mt={50}
+              mt={15}
               justifyContent="space-between"
               bg="rgba(240, 248, 255, 0.9)"
               p={6}
               boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
               mb="50px"
+              borderRadius="10px"
             >
-              <Button colorScheme="teal" type="submit">
+              <Button
+                colorScheme="teal"
+                type="submit"
+                boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.2), 0px 0px 20px 10px rgba(135, 206, 250, 0.2)"
+              >
                 Add Event
               </Button>
               <Button
@@ -199,6 +207,7 @@ export const AddEvent = () => {
                 onClick={handleCancel}
                 border="2px"
                 borderColor="gray.500"
+                boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
               >
                 Go Back
               </Button>
