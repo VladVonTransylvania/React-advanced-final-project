@@ -13,7 +13,7 @@ export const SearchBar = ({ onSearch }) => {
   // Style object for the search bar, conditionally changes based on focus
   const searchBarStyle = {
     width: "80%",
-    maxWidth: "600px",
+    maxWidth: "500px",
     padding: "10px",
     border: isFocused ? "2px solid #007bff" : "2px solid #ddd", // Blue border when focused
     borderRadius: "5px",
@@ -21,7 +21,7 @@ export const SearchBar = ({ onSearch }) => {
     boxShadow: isFocused
       ? "0 2px 4px rgba(0, 0, 0, 0.1)" // Less pronounced shadow when focused
       : "0 2px 8px rgba(0, 123, 255, 0.6)",
-    transition: "border-color 0.3s, box-shadow 0.3s, background-color 0.3s", // Smooth transition for focus effect
+    transition: "border-color 0.9s, box-shadow 0.9s, background-color 0.9s", // Smooth transition for focus effect
   };
 
   return (

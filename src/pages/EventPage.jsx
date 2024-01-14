@@ -12,7 +12,9 @@ import {
   Image,
   Tag,
   useToast,
+  Spacer
 } from "@chakra-ui/react";
+import Footer from "../components/Footer";
 
 export const EventPage = () => {
   // Access event ID from URL parameters
@@ -88,7 +90,7 @@ export const EventPage = () => {
           isClosable: true,
         });
 
-        setTimeout(() => navigate("/"), 2000);
+        setTimeout(() => navigate("/"), 1000);
       } catch (error) {
         toast({
           title: "Failed to delete event.",
@@ -114,15 +116,17 @@ export const EventPage = () => {
   };
 
   return (
-    <Flex align="center" justify="center" minH="100vh">
+    <Flex align="center" minH="100vh" direction="column">
+      <Spacer />
       <Box
         p={6}
         boxShadow="lg"
-        bg="white"
+        bg="rgba(240, 248, 255, 0.3)"
         maxWidth="900px"
         width="100%"
         mx="auto"
         textAlign="center"
+        
       >
         {/* Conditional rendering: If event data is available, display the event details; otherwise, show a loading message */}
         {event ? (
@@ -131,16 +135,15 @@ export const EventPage = () => {
             <Heading
               as="h1"
               size="xl"
-              bg="rgba(240, 248, 255, 1.5)"
+              bg="rgba(240, 248, 255, 0.9)"
               p="30px"
-              boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
+              boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.9), 0px 0px 20px 10px rgba(135, 206, 250, 0.9)"
               borderRadius="10px"
               mb={6}
             >
               {event.title}
             </Heading>
 
-            {/* Display the event image */}
             <Flex
               alignItems="center"
               justifyContent="center"
@@ -148,10 +151,11 @@ export const EventPage = () => {
               bg="rgba(240, 248, 255, 0.9)"
               pt="15px"
               pb="25px"
-              boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
+              boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.9), 0px 0px 20px 10px rgba(135, 206, 250, 0.9)"
               borderRadius="10px"
               mb={6}
             >
+              {/* Display the event image */}
               <Image
                 src={event.image}
                 alt={event.title}
@@ -164,7 +168,7 @@ export const EventPage = () => {
               />
 
               {/* Display the event description */}
-              <Text fontSize="md" mb={2} marginTop="20px">
+              <Text mb={5} mt="50px" pl="50px" pr="50px" maxWidth="100%">
                 {event.description}
               </Text>
 
@@ -172,16 +176,20 @@ export const EventPage = () => {
               <Text mb={2}>
                 Start Time: {new Date(event.startTime).toLocaleString()}
               </Text>
-              <Text mb={2}>
-                End Time: {new Date(event.endTime).toLocaleString()}
-              </Text>
+              <Text>End Time: {new Date(event.endTime).toLocaleString()}</Text>
 
               {/* Display event categories using tags */}
-              <Box mb={4}>
+              <Box mb={4} mt={5}>
                 Categories:{" "}
                 {getEventCategories(event.categoryIds).map(
                   (category, index) => (
-                    <Tag key={index} mr={2}>
+                    <Tag
+                      key={index}
+                      ml={3}
+                      bg="rgba(240, 248, 255, 0.9)"
+                      boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
+                      fontWeight="bold"
+                    >
                       {category}
                     </Tag>
                   )
@@ -193,7 +201,7 @@ export const EventPage = () => {
             <Box
               bg="rgba(240, 248, 255, 0.9)"
               py="25px" // Apply padding of 20px on top and bottom
-              boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
+              boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.9), 0px 0px 20px 10px rgba(135, 206, 250, 0.9)"
               borderRadius="10px"
               mb={6}
             >
@@ -208,6 +216,10 @@ export const EventPage = () => {
                   mr={3} // Margin right to add space between image and text
                   borderRadius="5px"
                   boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
+                  _hover={{
+                    transform: "scale(1.5)", // Example hover effect
+                    transition: "transform 0.2s",
+                  }}
                 />
               </Flex>
             </Box>
@@ -222,7 +234,7 @@ export const EventPage = () => {
               flexDirection={{ base: "column", sm: "row" }} // Column on small screens, row on larger
               alignItems="center" // Center items vertically
               justifyContent={{ base: "center", sm: "space-between" }} // Center on small screens, space between on larger
-              boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
+              boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.9), 0px 0px 20px 10px rgba(135, 206, 250, 0.9)"
               borderRadius="10px"
             >
               {/* Flex container for 'Edit Event' and 'Go Back' buttons */}
@@ -233,21 +245,25 @@ export const EventPage = () => {
                 mt={5}
               >
                 <Button
-                  colorScheme="blue"
                   onClick={handleEdit}
                   mb={{ base: 4, sm: 0 }}
                   mr={{ sm: 10 }}
-                  boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
+                  boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.4), 0px 0px 20px 10px rgba(135, 206, 250, 0.4)"
+                  color="blue.600" // Dark green text color
+                  _hover={{ bg: "blue.500", color: "white" }}
                 >
                   Edit Event
                 </Button>
 
                 <Button
-                  colorScheme="gray"
                   onClick={handleCancel}
-                  border="1px"
-                  borderColor="gray.500"
-                  boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
+                  boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.4), 0px 0px 20px 10px rgba(135, 206, 250, 0.4)"
+                  color="gray.600"
+                  _hover={{
+                    bg: "gray.300",
+                    color: "black",
+                    border: "0.1em solid black",
+                  }}
                 >
                   Go Back
                 </Button>
@@ -255,10 +271,11 @@ export const EventPage = () => {
 
               {/* 'Delete Event' button */}
               <Button
-                colorScheme="red"
                 onClick={handleDelete}
                 mt={5}
-                boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
+                boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.4), 0px 0px 20px 10px rgba(135, 206, 250, 0.4)"
+                color="red"
+                _hover={{ bg: "red.500", color: "white" }}
               >
                 Delete Event
               </Button>
@@ -267,15 +284,18 @@ export const EventPage = () => {
         ) : (
           <Text>Loading...</Text>
         )}
+        
+        {/* Edit Event Modal component for updating the event details */}
+        <EditEventModal
+          isOpen={isOpen}
+          onClose={onClose}
+          event={event}
+          onEventUpdate={handleEventUpdate}
+        />
       </Box>
-
-      {/* Edit Event Modal component for updating the event details */}
-      <EditEventModal
-        isOpen={isOpen}
-        onClose={onClose}
-        event={event}
-        onEventUpdate={handleEventUpdate}
-      />
+    
+      <Spacer />
+      <Footer />
     </Flex>
   );
 };

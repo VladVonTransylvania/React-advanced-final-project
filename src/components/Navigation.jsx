@@ -1,6 +1,7 @@
 import React from "react";
 import { Link as ReactRouterLink, useLocation } from "react-router-dom";
-import { Flex, Link } from "@chakra-ui/react";
+import { Flex, Button } from "@chakra-ui/react";
+
 
 export const Navigation = () => {
   // useLocation hook to access the current URL location
@@ -12,21 +13,65 @@ export const Navigation = () => {
   return (
     <Flex
       as="nav"
-      bg="blue.500"
-      color="white"
-      p={7}
       justifyContent="space-around"
+      bg="rgba(240, 248, 255, 0.9)"
+      align="stretch"
+      boxShadow="inset 0px 0px 15px 5px rgba(173, 216, 230, 0.9), inset 0px 0px 20px 10px rgba(135, 206, 250, 0.9)"
     >
       {/* Link to the main events page */}
-      <Link as={ReactRouterLink} to="/">
+      <Button
+        as={ReactRouterLink}
+        to="/"
+        color="black"
+        variant="ghost"
+        h="100%"
+        pt="30px"
+        pb="30px"
+        px={20}
+        fontSize="2xl"
+        bg="rgba(240, 248, 255, 0.0)"
+        boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.9), 0px 0px 20px 10px rgba(135, 206, 250, 0.9)"
+        _hover={{
+          bg: "rgba(240, 248, 255, 0.9)",
+          boxShadow:
+            "inset 0px 0px 15px 5px rgba(173, 216, 230, 0.9), inset 0px 0px 20px 10px rgba(135, 206, 250, 0.9)",
+        }}
+        w="49%"
+        mt="20px" // Margin top
+        mb="20px" // Margin bottom
+        mr="5px" // Margin right
+        ml="5px" // Margin left
+      >
         Events
-      </Link>
+      </Button>
 
       {/* Conditionally render the link to the specific event if on an event page */}
       {isEventPage && (
-        <Link as={ReactRouterLink} to={location.pathname}>
+        <Button
+          as={ReactRouterLink}
+          to={location.pathname}
+          color="black"
+          variant="ghost"
+          h="100%"
+          pt="30px"
+          pb="30px"
+          px={20}
+          fontSize="2xl"
+          bg="rgba(240, 248, 255, 0.0)"
+          boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.9), 0px 0px 20px 10px rgba(135, 206, 250, 0.9)"
+          _hover={{
+            bg: "rgba(240, 248, 255, 0.9)",
+            boxShadow:
+              "inset 0px 0px 15px 5px rgba(173, 216, 230, 0.9), inset 0px 0px 20px 10px rgba(135, 206, 250, 0.9)",
+          }}
+          w="49%"
+          mt="20px" // Margin top
+          mb="20px" // Margin bottom
+          mr="5px" // Margin right
+          ml="5px" // Margin left
+        >
           Event
-        </Link>
+        </Button>
       )}
     </Flex>
   );

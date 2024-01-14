@@ -32,11 +32,23 @@ const router = createBrowserRouter([
   },
 ]);
 
+const imageUrl =
+  "https://wallpapercrafter.com/th800/157790-China-Hong-Kong-building-architecture-lights-city-cityscape-night-road-street-traffic-lights-street-light-long-exposure-city-lights-photography-vehicle-blue-urban-mode.jpg";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ChakraProvider>
       <DataProvider>
-        <Box bg="blue.100" minH="100vh" color="black">
+        <Box
+          bg="blue.100"
+          minH="100vh"
+          color="black"
+          backgroundImage={`url(${imageUrl})`}
+          backgroundSize="cover"
+          backgroundPosition="center" // Center the background image
+          backgroundRepeat="no-repeat"
+          backgroundAttachment="fixed"
+        >
           <RouterProvider router={router} />
         </Box>
       </DataProvider>

@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { DataContext } from "../contexts/DataContext";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
 
 export const AddEvent = () => {
   const [eventData, setEventData] = useState({
@@ -89,132 +90,177 @@ export const AddEvent = () => {
 
   return (
     <Flex direction="column" align="center" justify="center" minH="100vh">
-      <Box
-        borderWidth="1px"
-        bg="#FDFDFD"
-        maxWidth="700px"
+      <Flex
+        bg="rgba(240, 248, 255, 0.3)"
+        maxWidth="750px"
         width="100%"
-        mx="auto"
-        minH="100vh"
+        textAlign="center"
+        flex="1"
+        py={5}
+        align="center" // Ensure alignment is centered
+        justify="center" // Ensure content is centered vertically
+        mx={10}
       >
         <Box
-          p={5}
-          boxShadow="inset 0px 0px 15px 5px rgba(173, 216, 230, 0.2), inset 0px 0px 20px 10px rgba(135, 206, 250, 0.2)"
+          bg="rgba(240, 248, 255, 0.9)"
+          maxWidth="700px"
+          width="100%"
+          mb="20px"
+          height="100%"
+          mt="20px"
+          borderRadius="10px"
+          boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.9), 0px 0px 20px 10px rgba(135, 206, 250, 0.9)"
         >
-          <Heading
-            as="h2"
-            size="lg"
-            mb="50px"
-            mt="25px"
-            textAlign="center"
-            bg="rgba(240, 248, 255, 0.9)"
-            p={5}
-            boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
-            borderRadius="15px"
-          >
-            Create Event
-          </Heading>
+          <Box p={5} borderRadius="15px">
+            <Heading
+              as="h2"
+              size="lg"
+              mb="60px"
+              mt="25px"
+              textAlign="center"
+              p={5}
+              boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.6), 0px 0px 20px 10px rgba(135, 206, 250, 0.6)"
+              borderRadius="15px"
+            >
+              Create Event
+            </Heading>
 
-          <form onSubmit={handleSubmit}>
-            <FormControl isRequired>
-              <FormLabel htmlFor={titleId}>Event Title</FormLabel>
-              <Input
-                id="event-title"
-                name="title"
-                type="text"
-                value={eventData.title}
-                onChange={handleChange}
-              />
-            </FormControl>
-            <FormControl isRequired>
-              <FormLabel htmlFor={descriptionId}>Description</FormLabel>
-              <Input
-                id="event-description"
-                name="description"
-                type="text"
-                value={eventData.description}
-                onChange={handleChange}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel htmlFor={imageId}>Image URL</FormLabel>
-              <Input
-                id="event-image"
-                name="image"
-                type="text"
-                value={eventData.image}
-                onChange={handleChange}
-              />
-            </FormControl>
-            <FormControl isRequired>
-              <FormLabel htmlFor={startTimeId}>Start Time</FormLabel>
-              <Input
-                id="event-startTime"
-                name="startTime"
-                type="datetime-local"
-                value={eventData.startTime}
-                onChange={handleChange}
-              />
-            </FormControl>
-            <FormControl isRequired>
-              <FormLabel htmlFor={endTimeId}>End Time</FormLabel>
-              <Input
-                id="event-endTime"
-                name="endTime"
-                type="datetime-local"
-                value={eventData.endTime}
-                onChange={handleChange}
-              />
-            </FormControl>
-            <FormControl mt={8}>
-              <FormLabel>Categories:</FormLabel>
-              <Stack>
-                {categories.map((category) => (
-                  <Checkbox
-                    key={category.id}
-                    value={String(category.id)}
-                    id={`category-${category.id}`}
-                    onChange={handleChange}
-                    isChecked={eventData.categoryIds.includes(category.id)}
-                    name="categoryIds"
-                  >
-                    {category.name}
-                  </Checkbox>
-                ))}
-              </Stack>
-              <Text fontSize="sm" color="red.500" mt={7}>
+            <form onSubmit={handleSubmit}>
+              <FormControl isRequired mb={6}>
+                <FormLabel htmlFor={titleId} fontWeight="bold">
+                  Event Title
+                </FormLabel>
+                <Input
+                  id={titleId}
+                  name="title"
+                  type="text"
+                  value={eventData.title}
+                  onChange={handleChange}
+                  border="1px solid black"
+                  fontWeight="bold"
+                />
+              </FormControl>
+              <FormControl isRequired mb={6}>
+                <FormLabel htmlFor={descriptionId} fontWeight="bold">
+                  Description
+                </FormLabel>
+                <Input
+                  id={descriptionId}
+                  name="description"
+                  type="text"
+                  value={eventData.description}
+                  onChange={handleChange}
+                  border="1px solid black"
+                  fontWeight="bold"
+                />
+              </FormControl>
+              <FormControl mb={6}>
+                <FormLabel htmlFor={imageId} fontWeight="bold">
+                  Image URL
+                </FormLabel>
+                <Input
+                  id={imageId}
+                  name="image"
+                  type="text"
+                  value={eventData.image}
+                  onChange={handleChange}
+                  border="1px solid black"
+                  fontWeight="bold"
+                />
+              </FormControl>
+              <FormControl isRequired mb={6}>
+                <FormLabel htmlFor={startTimeId} fontWeight="bold">
+                  Start Time
+                </FormLabel>
+                <Input
+                  id={startTimeId}
+                  name="startTime"
+                  type="datetime-local"
+                  value={eventData.startTime}
+                  onChange={handleChange}
+                  border="1px solid black"
+                />
+              </FormControl>
+              <FormControl isRequired mb={6}>
+                <FormLabel htmlFor={endTimeId} fontWeight="bold">
+                  End Time
+                </FormLabel>
+                <Input
+                  id={endTimeId}
+                  name="endTime"
+                  type="datetime-local"
+                  value={eventData.endTime}
+                  onChange={handleChange}
+                  border="1px solid black"
+                />
+              </FormControl>
+              <FormControl mt={8}>
+                <Flex alignItems="center">
+                  <FormLabel mb="64px" mr={6} fontWeight="bold">
+                    Categories:
+                  </FormLabel>
+                  <Stack>
+                    {categories.map((category) => (
+                      <Checkbox
+                        key={category.id}
+                        value={String(category.id)}
+                        id={`category-${category.id}`}
+                        onChange={handleChange}
+                        isChecked={eventData.categoryIds.includes(category.id)}
+                        fontWeight="bold"
+                        name="categoryIds"
+                        sx={{
+                          ".chakra-checkbox__control": {
+                            borderColor: "blue.500", // Change this to your desired color
+                          },
+                          ".chakra-checkbox__label": {
+                            color: "initial", // Keeps the text color unchanged
+                          },
+                        }}
+                      >
+                        {category.name}
+                      </Checkbox>
+                    ))}
+                  </Stack>
+                </Flex>
+              </FormControl>
+              <Text fontSize="sm" color="red.500" mt={5}>
                 *** Fields marked with * are mandatory
               </Text>
-            </FormControl>
-            <Flex
-              mt={15}
-              justifyContent="space-between"
-              bg="rgba(240, 248, 255, 0.9)"
-              p={6}
-              boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
-              mb="50px"
-              borderRadius="10px"
-            >
-              <Button
-                colorScheme="teal"
-                type="submit"
-                boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.2), 0px 0px 20px 10px rgba(135, 206, 250, 0.2)"
+              <Flex
+                mt="50px"
+                justifyContent="space-between"
+                p={8}
+                boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.9), 0px 0px 20px 10px rgba(135, 206, 250, 0.9)"
+                mb="50px"
+                borderRadius="10px"
+                width={{ base: "100%", md: "auto" }}
               >
-                Add Event
-              </Button>
-              <Button
-                colorScheme="gray"
-                onClick={handleCancel}
-                border="2px"
-                borderColor="gray.500"
-                boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.3), 0px 0px 20px 10px rgba(135, 206, 250, 0.3)"
-              >
-                Go Back
-              </Button>
-            </Flex>
-          </form>
+                <Button
+                  type="submit"
+                  variant="ghost"
+                  boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.9), 0px 0px 20px 10px rgba(135, 206, 250, 0.9)"
+                  borderColor="green.500" // Dark green border color
+                  color="darkgreen" // Dark green text color
+                  _hover={{ bg: "green.500", color: "white" }} // Optional: Styling for hover state
+                >
+                  Add Event
+                </Button>
+                <Button
+                  onClick={handleCancel}
+                  variant="ghost"
+                  boxShadow="0px 0px 15px 5px rgba(173, 216, 230, 0.9), 0px 0px 20px 10px rgba(135, 206, 250, 0.9)"
+                  color="gray.600"
+                  _hover={{ bg: "gray.300", color: "black", border: "0.1em solid black" }}
+                >
+                  Go Back
+                </Button>
+              </Flex>
+            </form>
+          </Box>
         </Box>
-      </Box>
+      </Flex>
+      <Footer />
     </Flex>
   );
 };
